@@ -6,18 +6,27 @@ from pythonosc import udp_client
 pygame.init()
 pygame.midi.init()
 
+#利用可能なMIDIデバイスの一覧を表示
+count = pygame.midi.get_count()
+print("\nget_default_input_id:%d" % pygame.midi.get_default_input_id())
+print("get_default_output_id:%d" % pygame.midi.get_default_output_id())
+print("\nNo:(interf, name, input, output, opened)")
+for i in range(count):
+    print("%d:%s" % (i, pygame.midi.get_device_info(i)))
+
 #入力MIDIデバイスの指定
-input_id = pygame.midi.get_default_input_id()
+input_id = pygame.midi.get_default_input_id()   # システムのデフォルトのMIDI入力デバイスを使用する
+#input_id = 2                                   # n番目のMIDI入力デバイスを使用する
 
 #OSC通信のポート番号とIPアドレスを指定
-OSC_PortNum = 9000
-OSC_IPAdress= "127.0.0.1"
+OSC_PortNum = 9000          #ポート番号
+OSC_IPAdress= "127.0.0.1"   #IPアドレス
 
-print("input MIDI:%d" % input_id)
+print("\ninput MIDI:%d" % input_id)
 i = pygame.midi.Input(input_id)
-print("Port: " + str(OSC_PortNum))
+print("\nPort: " + str(OSC_PortNum))
 print("IP Adress: " + str(OSC_IPAdress))
-print ("starting")
+print ("\nstarting")
 #print ("full midi_events:[[[status,data1,data2,data3],timestamp],...]")
 
 going = True
